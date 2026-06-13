@@ -26,11 +26,20 @@
 
 > Document how you used AI to help generate or improve tests.
 
+**Prompt used:**
+
+```
+Add advanced edge case tests for the guess comparison function. Test what happens when 
+users input values far outside the valid game range (1-500): negative numbers, zero, 
+and extremely large numbers. Verify these invalid inputs are still correctly compared 
+against the secret number.
+```
+
 | Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
 |-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
+| Negative number input | Advanced edge case prompt | `test_negative_number_guess()`: -50 vs 50 returns "Too Low" | Yes | Numbers outside valid range (1-500) should still compare correctly; tests robustness against invalid user input |
+| Zero input | Advanced edge case prompt | `test_zero_as_guess()`: 0 vs 50 returns "Too Low" | Yes | Zero is a boundary value outside valid range; catches off-by-one or comparison logic errors |
+| Extremely large number | Advanced edge case prompt | `test_extremely_large_guess()`: 999999 vs 50 returns "Too High" | Yes | Tests that comparison logic doesn't break with values far beyond game range; guards against overflow or type coercion bugs |
 
 ---
 
