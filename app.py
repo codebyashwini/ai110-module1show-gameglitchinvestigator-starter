@@ -31,6 +31,7 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
+    # FIXME: Logic breaks here - attempts was initialized to 1 instead of 0
     st.session_state.attempts = 0
 
 if "score" not in st.session_state:
@@ -44,6 +45,7 @@ if "history" not in st.session_state:
 
 st.subheader("Make a guess")
 
+# FIXME: Logic breaks here - range was hardcoded to 1-100 instead of using {low} and {high} variables
 st.info(
     f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -70,6 +72,7 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
+    # FIXME: Logic breaks here - New Game was not properly resetting score, status, and history; also used hardcoded range
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
     st.session_state.score = 0
@@ -96,6 +99,7 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
+        # FIXME: Logic breaks here - secret was being converted to string on even attempts, causing type mismatch
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)

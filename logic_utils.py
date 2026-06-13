@@ -5,6 +5,7 @@ def get_range_for_difficulty(difficulty: str):
     if difficulty == "Normal":
         return 1, 100
     if difficulty == "Hard":
+        # FIXME: Logic breaks here - Hard difficulty range was 1-50, should be wider than Normal (1-500)
         return 1, 500
     return 1, 100
 
@@ -41,6 +42,7 @@ def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
 
+    # FIXME: Logic breaks here - hint messages were inverted (Too High said "Go HIGHER", Too Low said "Go LOWER")
     if guess > secret:
         return "Too High", "📉 Go LOWER!"
     else:
@@ -55,6 +57,7 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
             points = 10
         return current_score + points
 
+    # FIXME: Logic breaks here - Too High had inconsistent scoring (bonus on even attempts), should always be -5 like Too Low
     if outcome == "Too High":
         return current_score - 5
 
