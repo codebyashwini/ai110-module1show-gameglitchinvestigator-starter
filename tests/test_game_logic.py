@@ -1,4 +1,4 @@
-from logic_utils import check_guess
+from logic_utils import check_guess, parse_guess, get_range_for_difficulty
 
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win
@@ -28,3 +28,27 @@ def test_too_low_message_correct():
     assert outcome == "Too Low"
     assert "HIGHER" in message
     assert "LOWER" not in message
+
+
+# Challenge 1: Advanced Edge-Case Testing
+
+def test_negative_number_guess():
+    # Edge case: Negative numbers are outside the valid range (1-500)
+    # Should be detected as "Too Low" since -50 < 50
+    outcome, message = check_guess(-50, 50)
+    assert outcome == "Too Low"
+    assert message is not None
+
+def test_zero_as_guess():
+    # Edge case: Zero is outside the valid range (1-500)
+    # Should be detected as "Too Low" since 0 < 50
+    outcome, message = check_guess(0, 50)
+    assert outcome == "Too Low"
+    assert message is not None
+
+def test_extremely_large_guess():
+    # Edge case: Extremely large values (999999) are outside any valid range
+    # Should be detected as "Too High" since 999999 > 50
+    outcome, message = check_guess(999999, 50)
+    assert outcome == "Too High"
+    assert message is not None
