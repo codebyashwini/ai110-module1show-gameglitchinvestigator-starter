@@ -26,7 +26,11 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ## 2. How did you use AI as a teammate?
 
-I used Claude Code (Claude Opus 4.8) to help identify, understand, and fix the bugs in this project. The AI correctly identified that the hint messages in the `check_guess` function were inverted and suggested swapping the "Go LOWER!"/"Go HIGHER!" messages, which I verified by running the test suite (`pytest tests/test_game_logic.py`) and confirming all tests passed. The AI also helped me understand that the secret number was being incorrectly converted to a string on even attempts, causing type comparison issues. I verified this was a real bug by examining the code logic and seeing how it would break the game flow. The AI was consistently accurate in analyzing the codebase structure and suggesting targeted fixes that addressed root causes rather than symptoms.
+I used Claude Code (Claude Opus 4.8) to help identify, understand, and fix the bugs in this project. The AI correctly identified that the hint messages in the `check_guess` function were inverted and suggested swapping the "Go LOWER!"/"Go HIGHER!" messages, which I verified by running the test suite (`pytest tests/test_game_logic.py`) and confirming all tests passed. The AI also helped me understand that the secret number was being incorrectly converted to a string on even attempts, causing type comparison issues. I verified this was a real bug by examining the code logic and seeing how it would break the game flow.
+
+However, I didn't blindly accept every AI suggestion. When the AI first explained the type conversion bug, its explanation was vague about *when* the conversion happened in the code flow. Rather than trust that interpretation, I manually traced through the logic in `app.py` to confirm exactly where the string conversion occurred and understand the consequences. This critical verification process caught that I needed to fix it in multiple places, not just one location as the AI initially implied. Additionally, when the AI suggested the difficulty range fix, I had to verify that 1-500 was actually the intended range by checking the original game requirements rather than assuming the suggestion was correct.
+
+These experiences taught me that while AI is excellent at spotting patterns and suggesting directions, I need to independently verify each fix through testing and code tracing to ensure I actually understand the problem and the solution, not just blindly apply AI recommendations.
 
 ---
 
